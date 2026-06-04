@@ -575,8 +575,8 @@ export default function Showcase() {
     } else if (currentScreen === 1) {
       timeline.to(".basketball-container", {
         opacity: 1,
-        x: isMobile ? "0%" : "160%",
-        y: isMobile ? "-15%" : "-12px",
+        x: isMobile ? "0%" : "155%",
+        y: isMobile ? "-15%" : "18px",
         scale: isMobile ? 1.4 : 3.4,
         duration: 0.7,
         ease: "power2.inOut",
@@ -584,8 +584,8 @@ export default function Showcase() {
     } else if (currentScreen === 2) {
       timeline.to(".basketball-container", {
         opacity: 1,
-        x: isMobile ? "0%" : "-160%",
-        y: isMobile ? "-15%" : "-12px",
+        x: isMobile ? "0%" : "-155%",
+        y: isMobile ? "-15%" : "18px",
         scale: isMobile ? 1.4 : 3.4,
         duration: 0.7,
         ease: "power2.inOut",
@@ -594,7 +594,7 @@ export default function Showcase() {
       timeline.to(".basketball-container", {
         opacity: 1,
         x: "0%",
-        y: isMobile ? "-15%" : "-12px",
+        y: isMobile ? "-15%" : "25px",
         scale: isMobile ? 1.4 : 1.7,
         duration: 0.7,
         ease: "power2.inOut",
@@ -603,7 +603,7 @@ export default function Showcase() {
       timeline.to(".basketball-container", {
         opacity: 1,
         x: "0%",
-        y: isMobile ? "-35%" : "-25px",
+        y: isMobile ? "-35%" : "-5px",
         scale: isMobile ? 1.3 : 1.6,
         duration: 0.7,
         ease: "power2.inOut",
@@ -651,7 +651,7 @@ export default function Showcase() {
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full pointer-events-none filter blur-[120px] opacity-25 transition-colors duration-1000 z-0"
           style={{
-            background: `radial-gradient(circle, ${activeColor} 0%, transparent 70%)`,
+            backgroundColor: activeColor,
           }}
         />
 
@@ -779,6 +779,7 @@ export default function Showcase() {
                 ballColor={activeColor}
                 isFloating={currentScreen === 0}
                 renderScale={basketballRenderScale}
+                spinSpeedMultiplier={currentScreen === 1 || currentScreen === 2 ? 6.5 : 1}
                 onLoaded={() => setIsModelLoaded(true)}
               />
             </div>

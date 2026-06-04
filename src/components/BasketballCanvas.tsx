@@ -9,6 +9,7 @@ interface BasketballCanvasProps {
   ballColor: string;
   isFloating?: boolean;
   renderScale?: number;
+  spinSpeedMultiplier?: number;
   onLoaded?: () => void;
 }
 
@@ -201,6 +202,7 @@ export default function BasketballCanvas({
   ballColor,
   isFloating = true,
   renderScale = 1,
+  spinSpeedMultiplier = 1,
   onLoaded,
 }: BasketballCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -219,19 +221,30 @@ export default function BasketballCanvas({
   const renderScaleRef = useRef(renderScale);
   renderScaleRef.current = renderScale;
 
+  const spinSpeedMultiplierRef = useRef(spinSpeedMultiplier);
+  spinSpeedMultiplierRef.current = spinSpeedMultiplier;
+
   const rimLightRef = useRef<THREE.DirectionalLight | null>(null);
   const rimLight2Ref = useRef<THREE.DirectionalLight | null>(null);
+  const fillLightRef = useRef<THREE.DirectionalLight | null>(null);
   const glowLightRef = useRef<THREE.PointLight | null>(null);
 
   const updateAccentLights = useCallback((hexColor: string) => {
     const accentColor = new THREE.Color(getValidHexColor(hexColor));
     const accentHsl = { h: 0, s: 0, l: 0 };
     accentColor.getHSL(accentHsl);
+
+    // Rim lights: saturated and medium brightness
     accentColor.setHSL(accentHsl.h, Math.min(accentHsl.s * 0.75, 0.85), 0.62);
 
     rimLightRef.current?.color.copy(accentColor);
     rimLight2Ref.current?.color.copy(accentColor);
     glowLightRef.current?.color.copy(accentColor);
+
+    // Fill light: desaturated and bright tint matching the ball
+    const fillColor = new THREE.Color();
+    fillColor.setHSL(accentHsl.h, Math.min(accentHsl.s * 0.4, 0.35), 0.82);
+    fillLightRef.current?.color.copy(fillColor);
   }, []);
 
   // Effect for dynamic color updates
@@ -296,6 +309,7 @@ export default function BasketballCanvas({
     const fillLight = new THREE.DirectionalLight(0xa5c9ff, 0.8);
     fillLight.position.set(-5, 0, 2);
     scene.add(fillLight);
+    fillLightRef.current = fillLight;
 
     // Back rim lights use the active ball color so custom tints do not leave orange highlights.
     const rimLight = new THREE.DirectionalLight(0xffffff, 3.5);
@@ -442,7 +456,7 @@ export default function BasketballCanvas({
 
       // Constant slow spin
       if (basketballRef.current && !isInteracting) {
-        ballGroup.rotation.y += 0.004;
+        ballGroup.rotation.y += 0.004 * spinSpeedMultiplierRef.current;
       } else {
         ballGroup.rotation.y += 0.002;
       }
@@ -471,6 +485,7 @@ export default function BasketballCanvas({
       resizeObserver.disconnect();
       rimLightRef.current = null;
       rimLight2Ref.current = null;
+      fillLightRef.current = null;
       glowLightRef.current = null;
 
       scene.traverse((object) => {
