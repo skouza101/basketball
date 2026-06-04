@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏀 Slam Dunk — Morocco Showcase
 
-## Getting Started
+> An immersive, interactive 3D basketball product showcase inspired by the landscapes and heritage of Morocco.
 
-First, run the development server:
+---
+
+## ✨ Overview
+
+**Slam Dunk Morocco Showcase** is a premium interactive experience built around five limited-edition basketball colorways, each paying tribute to a distinct region of Morocco. Explore and customize a photorealistic 3D basketball, navigate through animated performance screens, and add products to a cart — all with seamless transitions, spatial audio, and cinematic design.
+
+---
+
+## 🎨 Featured Colorways
+
+| # | Name | Edition | Inspired By |
+|---|------|---------|-------------|
+| 01 | **Morocco** | Marrakech Edition | Terracotta clay tones of Marrakech |
+| 02 | **Sahara** | Golden Dust | Sun-drenched dunes of the Sahara |
+| 03 | **Atlas** | Cedar Forests | Pine forests of the Atlas Mountains |
+| 04 | **Blue City** | Chefchaouen Indigo | The painted blue streets of Chefchaouen |
+| 05 | **Fez Royal** | Oud Shadow | The tannery craft and heritage of Fez |
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | [Next.js 16](https://nextjs.org) (App Router) |
+| Language | TypeScript |
+| 3D Rendering | [Three.js](https://threejs.org) |
+| Animations | [GSAP](https://greensock.com/gsap/) |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com) |
+| Icons | [Lucide React](https://lucide.dev) |
+| Linting/Formatting | [Biome](https://biomejs.dev) |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js `>=18`
+- npm, yarn, pnpm, or bun
+
+### Install & Run
 
 ```bash
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+src/
+├── app/
+│   └── layout.tsx          # Root layout & global metadata
+└── components/
+    ├── Showcase.tsx         # Main experience — products, cart, screens
+    ├── BasketballCanvas.tsx # Three.js 3D basketball renderer
+    ├── FloatingTriangles.tsx# Decorative animated background elements
+    └── LoadingScreen.tsx    # Splash screen while the 3D model loads
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎮 Interaction Guide
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Action | Result |
+|--------|--------|
+| **Scroll** / **Swipe** | Navigate between the 6 showcase screens |
+| **Arrow keys** / Page Up/Down | Keyboard navigation between screens |
+| **← / →** arrows | Cycle through basketball colorways |
+| **Customize tab** | Pick a preset or custom hex color |
+| **Add to Cart** | Animated ball-flight to cart icon with sound |
+| **Cart icon** | Opens slide-over cart panel |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎵 Sound Design
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The showcase features a fully procedural audio engine built on the **Web Audio API** — no external sound files required. Every interaction triggers a unique synthesized sound:
+
+- **Cart** — a layered arc of tones, noise whoosh, and a satisfying bounce
+- **Color change** — a bright frequency sweep
+- **Navigation** — a low tonal pulse
+- **Panel toggle** — a mid-range chime
+
+---
+
+## 📜 Scripts
+
+```bash
+npm run dev       # Development server
+npm run build     # Production build
+npm run start     # Start production server
+npm run lint      # Biome lint check
+npm run format    # Biome auto-format
+```
+
+---
+
+## 🌍 Deployment
+
+Deploy instantly on [Vercel](https://vercel.com/new):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+For other platforms, run `npm run build` and serve the `.next` output per your host's Next.js guide.
+
+---
+
+## 📄 License
+
+This project is private. All rights reserved.

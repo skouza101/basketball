@@ -10,17 +10,180 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-bebas: var(--font-bebas-neue);
+  --font-monoton: var(--font-monoton);
+  --font-lilita: var(--font-lilita-one);
+  --font-staatliches: var(--font-staatliches);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
+    --radius: 0.5rem;
     --foreground: #ededed;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-stroke-1 {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+    color: transparent;
+  }
+  .text-stroke-2 {
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);
+    color: transparent;
+  }
+
+  .cart-flight-ball {
+    --cart-flight-color: #ff5500;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 54px;
+    height: 54px;
+    margin-left: -27px;
+    margin-top: -27px;
+    border-radius: 999px;
+    background:
+      radial-gradient(
+        circle at 32% 26%,
+        rgba(255, 255, 255, 0.72),
+        transparent 0 10%,
+        transparent 24%
+      ),
+      radial-gradient(
+        circle at 35% 32%,
+        var(--cart-flight-color),
+        color-mix(in oklab, var(--cart-flight-color), black 34%) 68%,
+        color-mix(in oklab, var(--cart-flight-color), black 58%) 100%
+      );
+    box-shadow:
+      inset -12px -14px 20px rgba(0, 0, 0, 0.42),
+      inset 8px 6px 14px rgba(255, 255, 255, 0.18),
+      0 0 22px color-mix(in oklab, var(--cart-flight-color), white 10%),
+      0 0 58px color-mix(in oklab, var(--cart-flight-color), black 15%);
+    transform-origin: center;
+    will-change: transform, opacity;
+    animation: cart-flight-launch 1.24s cubic-bezier(0.18, 0.82, 0.28, 1)
+      forwards;
+  }
+
+  .cart-flight-tail {
+    position: absolute;
+    right: 34px;
+    top: 50%;
+    width: 110px;
+    height: 28px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--cart-flight-color), white 8%)
+    );
+    filter: blur(10px);
+    opacity: 0.72;
+    transform: translateY(-50%);
+  }
+
+  .cart-flight-seam {
+    position: absolute;
+    inset: 7px;
+    border: 2px solid rgba(25, 9, 2, 0.68);
+    border-radius: 999px;
+    mix-blend-mode: multiply;
+  }
+
+  .cart-flight-seam-vertical {
+    transform: rotate(90deg) scaleX(0.42);
+  }
+
+  .cart-flight-seam-horizontal {
+    transform: scaleY(0.28);
+  }
+
+  .cart-flight-particle {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--cart-flight-color), white 20%);
+    box-shadow: 0 0 16px
+      color-mix(in oklab, var(--cart-flight-color), white 10%);
+    opacity: 0;
+    transform: scale(0.2);
+    animation: cart-flight-particle 0.78s ease-out forwards;
+    animation-delay: 0.08s;
+  }
+
+  .cart-flight-particle-one {
+    left: -22px;
+    top: 8px;
+  }
+
+  .cart-flight-particle-two {
+    left: -38px;
+    top: 31px;
+    width: 13px;
+    height: 13px;
+    animation-delay: 0.14s;
+  }
+
+  .cart-flight-particle-three {
+    left: -58px;
+    top: 18px;
+    width: 6px;
+    height: 6px;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes cart-flight-launch {
+    0% {
+      opacity: 0;
+      transform: translate(var(--cart-start-x), var(--cart-start-y)) scale(0.12)
+        rotate(-25deg);
+    }
+    12% {
+      opacity: 1;
+      transform: translate(var(--cart-start-x), var(--cart-start-y)) scale(0.76)
+        rotate(30deg);
+    }
+    46% {
+      opacity: 1;
+      transform: translate(var(--cart-mid-x), var(--cart-mid-y)) scale(1.1)
+        rotate(185deg);
+    }
+    88% {
+      opacity: 0.95;
+      transform: translate(var(--cart-end-x), var(--cart-end-y)) scale(0.3)
+        rotate(520deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--cart-end-x), var(--cart-end-y)) scale(0)
+        rotate(560deg);
+    }
+  }
+
+  @keyframes cart-flight-particle {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.2);
+    }
+    25% {
+      opacity: 0.9;
+      transform: translate(-10px, -4px) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-42px, 8px) scale(0.25);
+    }
+  }
+}
+
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  }
 }
